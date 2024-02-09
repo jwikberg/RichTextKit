@@ -491,7 +491,7 @@ namespace Topten.RichTextKit
 
         public byte[] ToBuffer()
         {
-            var mem = new MemoryStream();
+            using var mem = new MemoryStream();
             Save(mem);
             return mem.GetBuffer();
         }

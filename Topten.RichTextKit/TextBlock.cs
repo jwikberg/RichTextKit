@@ -1246,7 +1246,7 @@ namespace Topten.RichTextKit
                 return;
 
             // Get the typeface
-            var typeface = TypefaceFromStyle(style);
+            using var typeface = TypefaceFromStyle(style);
 
             // Get the slice of code points
             var codePointsSlice = _codePoints.SubSlice(start, length);
@@ -1375,7 +1375,7 @@ namespace Topten.RichTextKit
         FontRun CreateFontRun(StyleRun styleRun, Slice<int> codePoints, TextDirection direction, IStyle style, SKTypeface typeface, SKTypeface asFallbackFor)
         {
             // Shape the text
-            var shaper = TextShaper.ForTypeface(typeface);
+            using var shaper = TextShaper.ForTypeface(typeface);
             TextShaper.Result shaped;
             if (style.ReplacementCharacter == '\0')
                 shaped = shaper.Shape(_textShapingBuffers, codePoints, style, direction, codePoints.Start, asFallbackFor, ResolveTextAlignment());

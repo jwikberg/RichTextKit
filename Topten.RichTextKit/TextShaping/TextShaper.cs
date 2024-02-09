@@ -220,7 +220,7 @@ namespace Topten.RichTextKit
         {
             var clusters = GraphemeClusterAlgorithm.GetBoundaries(codePoints).ToArray();
             var glyph = _typeface.GetGlyph(style.ReplacementCharacter);
-            var font = new SKFont(_typeface, overScale);
+            using var font = new SKFont(_typeface, overScale);
             float glyphScale = style.FontSize / overScale;
 
             float[] widths = new float[1];
@@ -277,7 +277,7 @@ namespace Topten.RichTextKit
             float forceFixedPitchWidth = 0;
             if (asFallbackFor != _typeface && asFallbackFor != null)
             {
-                var originalTypefaceShaper = ForTypeface(asFallbackFor);
+                using var originalTypefaceShaper = ForTypeface(asFallbackFor);
                 if (originalTypefaceShaper._isFixedPitch)
                 {
                     forceFixedPitchWidth = originalTypefaceShaper._fixedCharacterWidth;
